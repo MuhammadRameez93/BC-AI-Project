@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BC AI Agent — Web App
 
-## Getting Started
+Next.js app for registration, login, and (later) Excel + Business Central configuration.
 
-First, run the development server:
+## Quick start
+
+From the **repository root**:
 
 ```bash
+npm run setup
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Or from this folder (`web/`):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run setup
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+`npm run setup` creates `web/.env` from `.env.example` (if missing) and applies the database migration.
 
-To learn more about Next.js, take a look at the following resources:
+## Required: `AUTH_SECRET`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If setup stops with an error about `AUTH_SECRET`, open `web/.env` and set a random string **at least 32 characters**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# Linux / macOS / Git Bash
+openssl rand -base64 32
+```
 
-## Deploy on Vercel
+Paste the result as the value of `AUTH_SECRET=` in `web/.env`, then run `npm run setup` again.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Troubleshooting
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Problem | Fix |
+|--------|-----|
+| `Could not read package.json` at repo root | Run commands from `web/` or use root scripts: `npm run dev` from BC-AI-Project root |
+| Prisma `datasource.url` required | Run `npm run setup` in `web/` (creates `.env`) |
+| Port 3000 in use | `npm run dev -- -p 3001` inside `web/` |
+| `better-sqlite3` install fails (Windows) | Install [Visual Studio Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) with “Desktop development with C++”, then `npm install` again |
