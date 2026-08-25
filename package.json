@@ -1,0 +1,11 @@
+{
+  "name": "bc-ai-project",
+  "private": true,
+  "description": "Business Central AI agent — run scripts from repo root or from web/",
+  "scripts": {
+    "setup": "npm run setup --prefix web",
+    "dev": "npm run dev --prefix web",
+    "build": "npm run build --prefix web",
+    "start": "npm run start --prefix web"
+  }
+}
